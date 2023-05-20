@@ -6,3 +6,5 @@ Cargo.lock
 /tls/privkey.pem
 /web/static/*
 !/web/static/.keep
+static/
+!static/.keep
