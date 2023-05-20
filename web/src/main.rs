@@ -44,10 +44,8 @@ pub async fn static_files(path: PathBuf, cookies: &CookieJar<'_>) -> Option<Name
 }
 
 #[catch(404)]
-pub async fn not_found() -> NamedFile {
-	NamedFile::open(Path::new(relative!("static")).join("404.html"))
-		.await
-		.unwrap()
+pub async fn not_found() -> Result<NamedFile, std::io::Error> {
+	NamedFile::open("static/404.html").await
 }
 
 #[launch]
