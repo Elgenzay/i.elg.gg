@@ -6,5 +6,5 @@ Cargo.lock
 /tls/privkey.pem
 /web/static/*
 !/web/static/.keep
-static/
-!static/.keep
+!/web/static/404.html
+!/web/static/favicon.ico
