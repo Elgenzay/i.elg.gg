@@ -4,7 +4,9 @@ use rocket::{
 	get,
 	http::CookieJar,
 	launch,
+	serde::json::Json,
 };
+use serde::Serialize;
 use std::{
 	env,
 	path::{Path, PathBuf},
@@ -52,6 +54,18 @@ pub async fn not_found() -> Result<NamedFile, std::io::Error> {
 fn rocket() -> _ {
 	dotenvy::dotenv().ok();
 	rocket::build()
-		.mount("/", rocket::routes![static_files])
+		.mount("/", rocket::routes![static_files, version])
 		.register("/", catchers![not_found])
+}
+
+#[derive(Serialize)]
+pub struct VersionInfo {
+	version: String,
+}
+
+#[rocket::get("/version")]
+pub fn version() -> Json<VersionInfo> {
+	Json(VersionInfo {
+		version: env!("CARGO_PKG_VERSION").to_string(),
+	})
 }
