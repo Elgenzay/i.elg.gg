@@ -39,7 +39,7 @@ pub async fn static_files(path: PathBuf, cookies: &CookieJar<'_>) -> Option<Name
 
 		path
 	} else {
-		Path::new(relative!("static")).join(path)
+		Path::new(relative!("static/webshare")).join(path)
 	};
 
 	NamedFile::open(path).await.ok()
@@ -50,11 +50,16 @@ pub async fn not_found() -> Result<NamedFile, std::io::Error> {
 	NamedFile::open("static/404.html").await
 }
 
+#[get("/favicon.ico")]
+async fn favicon() -> Option<NamedFile> {
+	NamedFile::open(Path::new("static/favicon.ico")).await.ok()
+}
+
 #[launch]
 fn rocket() -> _ {
 	dotenvy::dotenv().ok();
 	rocket::build()
-		.mount("/", rocket::routes![static_files, version])
+		.mount("/", rocket::routes![static_files, version, favicon])
 		.register("/", catchers![not_found])
 }
 

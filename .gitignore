@@ -4,7 +4,4 @@ Cargo.lock
 .env
 /tls/fullchain.pem
 /tls/privkey.pem
-/web/static/*
-!/web/static/.keep
-!/web/static/404.html
-!/web/static/favicon.ico
+/web/static/webshare/
