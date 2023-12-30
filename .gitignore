@@ -4,4 +4,5 @@ Cargo.lock
 .env
 /tls/fullchain.pem
 /tls/privkey.pem
-/web/static/webshare/
+/web/static/webshare/*
+!/web/static/webshare/.keep
