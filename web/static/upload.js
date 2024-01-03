@@ -19,6 +19,13 @@ document.addEventListener('DOMContentLoaded', (e) => {
 			uploadFile(file);
 		}
 	});
+
+	const urlParams = new URLSearchParams(window.location.search);
+	let auth = urlParams.get('a');
+
+	if (auth) {
+		document.cookie = 'auth=' + auth;
+	}
 });
 
 async function uploadFile(file) {
